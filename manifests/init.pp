@@ -177,6 +177,10 @@
 #   (optional) Determines which fields xinetd will log on failure
 #   Defaults to undef
 #
+# [*bootstrap_command*]
+#   (optional) command to execute to bootstrap cluster
+#   Defaults to undef
+#
 class galera(
   $galera_servers                 = [$::ipaddress_eth1],
   $galera_master                  = $::fqdn,
@@ -218,6 +222,7 @@ class galera(
   $status_log_on_success_operator = '=',
   $status_log_on_success          = '',
   $status_log_on_failure          = undef,
+  $bootstrap_command              = undef,
 ) {
   if $configure_repo {
     include galera::repo
