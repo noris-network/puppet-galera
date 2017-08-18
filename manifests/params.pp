@@ -6,7 +6,7 @@ class galera::params {
   $server_csl = join($galera::galera_servers, ',')
 
   if $galera::bootstrap_command {
-    $bootstrap_command = galera::bootstrap_command
+    $bootstrap_command = $galera::bootstrap_command
   } else {
       if $galera::vendor_type == 'percona' {
         $bootstrap_command = '/etc/init.d/mysql bootstrap-pxc'
