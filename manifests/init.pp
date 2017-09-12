@@ -127,6 +127,9 @@
 #   (optional) Whether the mysql service should be enabled
 #   Defaults to undef
 #
+# [*service_manage*]
+#   (optional) Whether the mysql service should be managed
+#
 # [*manage_package_nmap*]
 #   (optional) Whether the package nmap should be installed
 #
@@ -210,6 +213,7 @@ class galera(
   $package_ensure                 = 'installed',
   $status_password                = undef,
   $service_enabled                = undef,
+  $service_manage                 = undef,
   $mysql_service_name             = undef,
   $manage_package_nmap            = true,
   $manage_additional_packages     = true,
@@ -286,6 +290,7 @@ class galera(
     create_root_my_cnf => $create_root_my_cnf,
     create_root_user   => $create_root_user_real,
     service_enabled    => $service_enabled,
+    service_manage     => $service_manage,
     service_name       => $galera::params::mysql_service_name,
     restart            => $mysql_restart,
   }
