@@ -278,7 +278,7 @@ class galera(
         "/usr/bin/mysql --user=root --password=${root_password} -e 'select count(1);'",
         "/usr/bin/test `/bin/cat ${::root_home}/.my.cnf | /bin/grep -c \"password='${root_password}'\"` -eq 0",
         ],
-      require => Service['mysqld'],
+      require => [Service['mysqld'], Exec['validate_connection']],
       before  => [Class['mysql::server::root_password']],
     }
   }
