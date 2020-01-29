@@ -273,7 +273,7 @@ class galera(
     $my_cnf = "[client]\r\nuser=root\r\nhost=localhost\r\npassword='${root_password}'\r\n"
 
     exec { "check if mysql is ready":
-        command => "/usr/bin/mysql --user=root --password=${root_password} -e 'select count(1);'",
+        command => "/usr/bin/mysql --user=root --password=${root_password} -e 'select count(1);'| grep -qv 'ERROR'",
         tries => 10,
         try_sleep => 3,
         subscribe => Service['mysqld'],
