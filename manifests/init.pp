@@ -272,12 +272,16 @@ class galera(
     # Check if we can already login with the given password
     $my_cnf = "[client]\r\nuser=root\r\nhost=localhost\r\npassword='${root_password}'\r\n"
 
+    file { "/root/.should-we-create-my.cnf":
+      mode => '0700',
+      owner => 'root',
+      group => 'root',
+      content => template('galera/should-we-create-mycnf.erb')
+    } ->
+
     exec { "create ${::root_home}/.my.cnf":
       command => "/bin/echo -e \"${my_cnf}\" > ${::root_home}/.my.cnf",
-      onlyif  => [
-        "/usr/bin/mysql --user=root --password=${root_password} -e 'select count(1);' | grep -qv 'ERROR'",
-        "/usr/bin/test `/bin/cat ${::root_home}/.my.cnf | /bin/grep -c \"password='${root_password}'\"` -eq 0",
-        ],
+      onlyif  => "/root/.should-we-create-my.cnf",
       require => Service['mysqld'],
       before  => [Class['mysql::server::root_password']],
     }

@@ -1,0 +1,13 @@
+#!/bin/bash
+set -e
+
+test ` /bin/grep -c "password='<%= @root_password %>'" <%= @facts['root_home'] %>/.my.cnf ` -eq 0
+
+for TRY in $( seq 1 10 )
+do
+  if ! /usr/bin/mysql --user=root --password=<%= @root_password %> -e 'select count(1);' | grep '1'
+  then
+    sleep $TRY
+  fi
+done
+
