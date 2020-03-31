@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-test ` /bin/grep -c "password='<%= @root_password %>'" <%= @facts['root_home'] %>/.my.cnf ` -eq 0
+test ` cat <%= @facts['root_home'] %>/.my.cnf | /bin/grep -c "password='<%= @root_password %>'" ` -eq 0
 
 for TRY in $( seq 1 10 )
 do
