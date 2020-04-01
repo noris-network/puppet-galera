@@ -5,7 +5,7 @@ test ` cat <%= @facts['root_home'] %>/.my.cnf | /bin/grep -c "password='<%= @roo
 
 for TRY in $( seq 0 30 )
 do
-  if ! /usr/bin/mysql --user=root --password=<%= @root_password %> -e 'select count(1);' 2>&1 | grep -q 'ACCESS DENIED'
+  if /usr/bin/mysql --user=root --password=<%= @root_password %> -e 'select count(1);' 2>&1 | grep -q 'ACCESS DENIED'
   then
     # ACCESS DENIED
     exit 1
