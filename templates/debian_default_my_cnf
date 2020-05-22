@@ -28,7 +28,6 @@ sort_buffer_size	= 4M
 bulk_insert_buffer_size	= 16M
 tmp_table_size		= 32M
 max_heap_table_size	= 32M
-myisam_recover          = BACKUP
 key_buffer_size		= 128M
 table_open_cache	= 400
 myisam_sort_buffer_size	= 512M
